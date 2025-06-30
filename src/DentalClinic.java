@@ -17,6 +17,7 @@ public class DentalClinic {
 			System.out.println(ap.toString());
 		}
 	}
+
 	public void addAppointment(Appointment a) {
 		aL.add(a);
 	}
@@ -37,6 +38,7 @@ public class DentalClinic {
 	// 		}
 	// 	});
 	// }
+	
 	public void sortStartingTime(){
 		Collections.sort(aL, (a1, a2) -> {
 			try {

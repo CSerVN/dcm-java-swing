@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-
 public class DCM extends JFrame{
 	DentalClinic dC = new DentalClinic();
 	private static final long serialVersionUID = 1L;
