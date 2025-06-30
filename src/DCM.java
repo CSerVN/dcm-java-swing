@@ -63,35 +63,43 @@ public class DCM extends JFrame{
 		
 		add(jSP, BorderLayout.SOUTH);
 		
-		btn1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String selected = (String) khachHang.getSelectedItem();
-        // Tách ID và tên
-        String[] parts = selected.split("-", 2);
-        int id = Integer.parseInt(parts[0]);
-        String fullName = parts[1].trim();
-        
-        String lNgay = ngay.getText();
-        int lGioBatDau = Integer.parseInt(gioBatDau.getText());
-        String lGhiChu = ghiChu.getText();
-        
-        // Tạo Customer chỉ với tên
-        Customer customer = new Customer(id, fullName);
-        dC.addAppointment(new Appointment(customer, lNgay, lGioBatDau, lGhiChu));
-				model.setRowCount(0);
-				int stt = 1;
-				for(Appointment aP : dC.getaL()) {
-					model.addRow(new Object[] {
-						stt++, 
-						aP.getCustomer().getName(),
-						aP.getDate(), 
-						aP.getStartingTime(), 
-						aP.getNote()
-					});
-				}
-			}
-		});
+                btn1.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                String selected = (String) khachHang.getSelectedItem();
+                                // Tách ID và tên
+                                String[] parts = selected.split("-", 2);
+                                int id = Integer.parseInt(parts[0]);
+                                String fullName = parts[1].trim();
+
+                                String lNgay = ngay.getText();
+                                int lGioBatDau;
+                                try {
+                                        lGioBatDau = Integer.parseInt(gioBatDau.getText());
+                                } catch (NumberFormatException ex) {
+                                        JOptionPane.showMessageDialog(DCM.this,
+                                                        "Giờ bắt đầu không hợp lệ", "Lỗi nhập liệu",
+                                                        JOptionPane.ERROR_MESSAGE);
+                                        return;
+                                }
+                                String lGhiChu = ghiChu.getText();
+
+                                // Tạo Customer chỉ với tên
+                                Customer customer = new Customer(id, fullName);
+                                dC.addAppointment(new Appointment(customer, lNgay, lGioBatDau, lGhiChu));
+                                model.setRowCount(0);
+                                int stt = 1;
+                                for(Appointment aP : dC.getaL()) {
+                                        model.addRow(new Object[] {
+                                                stt++,
+                                                aP.getCustomer().getName(),
+                                                aP.getDate(),
+                                                aP.getStartingTime(),
+                                                aP.getNote()
+                                        });
+                                }
+                        }
+                });
 		
 		btn2.addActionListener(new ActionListener() {
 			@Override
